@@ -1,9 +1,10 @@
 stages:
-  - build
+  - build website
+  - test 
   - test
 
 build website:
-  stage: build
+  stage: build website
   image: node
   script:
     - npm install
@@ -13,8 +14,18 @@ build website:
     paths:
       - ./public
 
-test website:
+test artifact:
   stage: test
+  image: alpine
   script:
     - test -f ./public/index.html
-    - grep "gatsby" ./public/index.html
+    - grep -q "gatsby" ./public/index.html
+
+test website:
+  stage: test
+  image: node
+  script:
+    - npm install
+    - npm install -g gatsby-cli
+    - gatsby serve #start the server using the production build port 9000
+    - npm install curl "https //localhost:9000" | grep -q "Gatsby" #download the contents of this website from the input and pass it into the grep
