@@ -16,4 +16,5 @@ build website:
 test website:
   stage: test
   script:
-    - test -f ./public
+    - test -f ./public/index.html
+    - grep "gatsby" ./public/index.html
