@@ -1,0 +1,15 @@
+stages:
+  - build
+  - test
+
+build website:
+  stage: build
+  script:
+    - npm install
+    - npm install -g gatsby-cli
+    - gatsby build
+
+# test website:
+#   stage: test
+#   script:
+#     - 
