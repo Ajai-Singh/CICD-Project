@@ -48,12 +48,12 @@ test website:
 deploy staging:
   stage: deploy staging
   script:
-    - echo deploy staging
+    - echo "deploy staging"
 
 test staging deployment:
   stage: test staging deployment
   script:
-    - echo test staging deployment
+    - echo "test staging deployment"
 
 deploy production:
   stage: deploy production
