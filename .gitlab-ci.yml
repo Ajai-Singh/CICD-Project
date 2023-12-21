@@ -44,4 +44,4 @@ deploy website:
   image: node
   script:
     - npm install --global surge
-    - surge ./build $SURGE_DOMAIN --token $SURGE_TOKEN
+    - surge ./public $SURGE_DOMAIN --token $SURGE_TOKEN
