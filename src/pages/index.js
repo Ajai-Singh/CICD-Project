@@ -126,6 +126,7 @@ const links = [
 const IndexPage = () => {
   return (
     <main style={pageStyles}>
+      <div>Version: %%VERSION%%</div>
       <h1 style={headingStyles}>
         Congratulations
         <br />
