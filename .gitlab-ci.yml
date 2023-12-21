@@ -8,11 +8,6 @@ stages:
   - deploy
   - test deployment
 
-# define variables you can refer to them using "$" and the variable name
-variables:
-  SURGE_DOMAIN: medical-tin.surge.sh
-  SURGE_TOKEN: 2d21e8dcf841790f105ff16a01d3dd90
-
 build website:
   stage: build
   script:
@@ -44,12 +39,12 @@ deploy website to cloud:
   stage: deploy
   script:
     - npm install --global surge
-    - surge ./public $SURGE_DOMAIN --token $SURGE_TOKEN
+    - surge --project ./public --domain medical-tin.surge.sh
 
 test website deployment:
   stage: test deployment
   image: alpine
   script:
-    - curl -s "https://medical-tin.surge.sh/" | grep "Gatsby"
+    - curl "https://medical-tin.surge.sh" | grep "Gatsby"
 
 
