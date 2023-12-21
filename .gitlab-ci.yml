@@ -43,8 +43,9 @@ deploy website to cloud:
 
 test website deployment:
   stage: test deployment
-  image: alpine
   script:
+    - npm install --global surge
+    - surge --project ./public --domain medical-tin.surge.sh
     - curl "medical-tin.surge.sh" | tac | tac | grep "Gatsby"
 
 
