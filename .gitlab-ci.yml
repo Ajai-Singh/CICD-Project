@@ -1,7 +1,14 @@
+#below are the order of the stages in our pipeline
+#some stages run 1 by 1 some run at the same time
 stages:
   - build website
-  - test 
   - test
+  - deploy website to cloud
+
+# define variables you can refer to them using "$" and the variable name
+variables:
+  SURGE_DOMAIN: measly-amusement.surge.sh
+  SURGE_TOKEN: 93af564a0a5b479028ee7fcc9a422dbf
 
 build website:
   stage: build website
@@ -30,3 +37,10 @@ test website:
     - gatsby serve & #start the server using the production build port 9000
     - sleep 3 #add a command so that the server has some time to spin up before next command
     - curl "http://localhost:9000" | tac | tac | grep -q "Gatsby" #download the contents of this website from the input and pass it into the grep
+    #what tac is doing is making the grep wait until all the output is written from the curl
+
+deploy website:
+  stage: deploy website to cloud
+  script:
+    - npm install --global surge
+    - surge ./build $SURGE_DOMAIN --token $SURGE_TOKEN
