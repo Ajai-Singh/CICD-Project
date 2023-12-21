@@ -29,4 +29,4 @@ test website:
     - npm install -g gatsby-cli
     - gatsby serve & #start the server using the production build port 9000
     - sleep 3 #add a command so that the server has some time to spin up before next command
-    - npm install curl "https //localhost:9000" | grep -q "Gatsby" #download the contents of this website from the input and pass it into the grep
+    - curl "http://localhost:9000" | tac | tac | grep -q "Gatsby" #download the contents of this website from the input and pass it into the grep
