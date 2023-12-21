@@ -58,8 +58,10 @@ deploy staging:
 test staging deployment:
   stage: test staging deployment
   image: alpine
+  cache: {}
   script:
     - echo "test staging deployment"
+    - apk add --no-cache curl
     - curl "medical-tin.surge.sh" | tac | tac | grep "Gatsby"
 
 deploy production:
