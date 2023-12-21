@@ -48,10 +48,10 @@ deploy website to cloud:
 
 test website deployment:
   stage: test deployment
-  - npm install
-  - npm install -g gatsby-cli 
-  - npm install --global surge
-  - surge ./public $SURGE_DOMAIN --token $SURGE_TOKEN
-  - curl "$SURGE_DOMAIN" | tac | tac | grep -q "Gatsby"
+    - npm install
+    - npm install -g gatsby-cli 
+    - npm install --global surge
+    - surge ./public $SURGE_DOMAIN --token $SURGE_TOKEN
+    - curl "$SURGE_DOMAIN" | tac | tac | grep "Gatsby"
 
 
