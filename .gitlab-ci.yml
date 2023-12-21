@@ -1,4 +1,4 @@
-image: node
+image: node #globally download our docker image so that we dont need to download it everytime
 
 #below are the order of the stages in our pipeline
 #some stages run 1 by 1 some run at the same time
@@ -73,6 +73,7 @@ deploy production:
   environment:
     name: production
     url: "http://$PRODUCTION_DOMAIN"
+  when: manual #added a manual step so deploy to production is not automatic
   script:
     - npm install --global surge
     - surge --project ./public --domain $PRODUCTION_DOMAIN
