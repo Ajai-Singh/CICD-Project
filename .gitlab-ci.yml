@@ -1,9 +1,12 @@
+image: node
+
 #below are the order of the stages in our pipeline
 #some stages run 1 by 1 some run at the same time
 stages:
-  - build website
+  - build
   - test
-  - deploy website to cloud
+  - deploy
+  - test deployment
 
 # define variables you can refer to them using "$" and the variable name
 variables:
@@ -11,8 +14,7 @@ variables:
   SURGE_TOKEN: 93af564a0a5b479028ee7fcc9a422dbf
 
 build website:
-  stage: build website
-  image: node
+  stage: build
   script:
     - npm install
     - npm install -g gatsby-cli
@@ -30,7 +32,6 @@ test artifact:
 
 test website:
   stage: test
-  image: node
   script:
     - npm install
     - npm install -g gatsby-cli
@@ -39,9 +40,18 @@ test website:
     - curl "http://localhost:9000" | tac | tac | grep -q "Gatsby" #download the contents of this website from the input and pass it into the grep
     #what tac is doing is making the grep wait until all the output is written from the curl
 
-deploy website:
-  stage: deploy website to cloud
-  image: node
+deploy website to cloud:
+  stage: deploy
   script:
     - npm install --global surge
     - surge ./public $SURGE_DOMAIN --token $SURGE_TOKEN
+
+test website deployment:
+  stage: test deployment
+  - npm install
+  - npm install -g gatsby-cli 
+  - npm install --global surge
+  - surge ./public $SURGE_DOMAIN --token $SURGE_TOKEN
+  - curl "$SURGE_DOMAIN" | tac | tac | grep -q "Gatsby"
+
+
