@@ -45,6 +45,6 @@ test website deployment:
   stage: test deployment
   image: alpine
   script:
-    - curl "https://medical-tin.surge.sh" | grep "Gatsby"
+    - curl "http://medical-tin.surge.sh" | grep "Gatsby"
 
 
