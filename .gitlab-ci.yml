@@ -80,6 +80,8 @@ deploy production:
 
 test production deployment:
   stage: test production deployment
+  needs:
+    - deploy production #test production deployment has a dependency with deploy production
   image: alpine
   cache: {}
   script:
