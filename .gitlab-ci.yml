@@ -10,8 +10,8 @@ stages:
 
 # define variables you can refer to them using "$" and the variable name
 variables:
-  SURGE_DOMAIN: measly-amusement.surge.sh
-  SURGE_TOKEN: 93af564a0a5b479028ee7fcc9a422dbf
+  SURGE_DOMAIN: medical-tin.surge.sh
+  SURGE_TOKEN: 2d21e8dcf841790f105ff16a01d3dd90
 
 build website:
   stage: build
@@ -50,6 +50,6 @@ test website deployment:
   stage: test deployment
   image: alpine
   script:
-    - curl "$SURGE_DOMAIN" | tac | tac | grep "Gatsby"
+    - curl -s "https://medical-tin.surge.sh/" | grep "Gatsby"
 
 
