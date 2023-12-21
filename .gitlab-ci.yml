@@ -47,16 +47,26 @@ test website:
 
 deploy staging:
   stage: deploy staging
+  environment:
+    name: staging
+    url: "http://medical-tin-staging.surge.sh"
   script:
     - echo "deploy staging"
-
+    - npm install --global surge
+    - surge --project ./public --domain medical-tin-staging.surge.sh
+    
 test staging deployment:
   stage: test staging deployment
+  image: alpine
   script:
     - echo "test staging deployment"
+    - curl "medical-tin.surge.sh" | tac | tac | grep "Gatsby"
 
 deploy production:
   stage: deploy production
+  environment:
+    name: production
+    url: "http://medical-tin-staging.surge.sh"
   script:
     - npm install --global surge
     - surge --project ./public --domain medical-tin.surge.sh
