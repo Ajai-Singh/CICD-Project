@@ -10,6 +10,10 @@ stages:
   - deploy production
   - test production deployment
 
+variables:
+  STAGING_DOMAIN: medical-tin-staging.surge.sh
+  PRODUCTION_DOMAIN: medical-tin-prodction.surge.sh
+
 #Global cache configuration
 cache:
   key: ${CI_COMMIT_REF_SLUG} #this is a predefined variable to point at your current branch
@@ -49,11 +53,11 @@ deploy staging:
   stage: deploy staging
   environment:
     name: staging
-    url: "http://medical-tin-staging.surge.sh"
+    url: "http://$STAGING_DOMAIN"
   script:
     - echo "deploy staging"
     - npm install --global surge
-    - surge --project ./public --domain medical-tin-staging.surge.sh
+    - surge --project ./public --domain $STAGING_DOMAIN
     
 test staging deployment:
   stage: test staging deployment
@@ -62,16 +66,16 @@ test staging deployment:
   script:
     - echo "test staging deployment"
     - apk add --no-cache curl
-    - curl "medical-tin.surge.sh" | tac | tac | grep "Gatsby"
+    - curl "$STAGING_DOMAIN" | tac | tac | grep "Gatsby"
 
 deploy production:
   stage: deploy production
   environment:
     name: production
-    url: "http://medical-tin-staging.surge.sh"
+    url: "http://$PRODUCTION_DOMAIN"
   script:
     - npm install --global surge
-    - surge --project ./public --domain medical-tin.surge.sh
+    - surge --project ./public --domain $PRODUCTION_DOMAIN
 
 test production deployment:
   stage: test production deployment
@@ -79,7 +83,7 @@ test production deployment:
   cache: {}
   script:
     - apk add --no-cache curl
-    - curl "medical-tin.surge.sh" | tac | tac | grep "Gatsby"
-    - curl "medical-tin.surge.sh" | tac | tac | grep "$CI_COMMIT_SHORT_SHA"
+    - curl "$PRODUCTION_DOMAIN" | tac | tac | grep "Gatsby"
+    - curl "$PRODUCTION_DOMAIN" | tac | tac | grep "$CI_COMMIT_SHORT_SHA"
 
 
