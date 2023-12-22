@@ -14,7 +14,6 @@ stages:
 variables:
   STAGING_DOMAIN: medical-tin-staging.surge.sh
   PRODUCTION_DOMAIN: medical-tin-prodction.surge.sh
-  SYSTEM_REVIEW_DOMAIN: medical-tin-systemreview.surge.sh
 
 #Global cache configuration
 cache:
@@ -54,15 +53,15 @@ test website:
 system review:
   stage: system review
   environment:
-    name: system review
-    url: "http://$SYSTEM_REVIEW_DOMAIN"
+    name: name/$CI_COMMIT_SHORT_SHA
+    url: "medical-tin-CI_COMMIT_SHORT_SHA.surge.sh"
   only:
     refs:
-      - develop
+      - merge_requests
   script:
     - echo "deploy system review"
     - npm install --global surge
-    - surge --project ./public --domain $SYSTEM_REVIEW_DOMAIN
+    - surge --project ./public --domain medical-tin-CI_COMMIT_SHORT_SHA.surge.sh
 
 deploy staging:
   stage: deploy staging
