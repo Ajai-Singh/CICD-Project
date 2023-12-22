@@ -54,6 +54,9 @@ deploy staging:
   environment:
     name: staging
     url: "http://$STAGING_DOMAIN"
+  only:
+    refs:
+      - master
   script:
     - echo "deploy staging"
     - npm install --global surge
@@ -63,6 +66,9 @@ test staging deployment:
   stage: test staging deployment
   image: alpine
   cache: {}
+  only:
+    refs:
+      - master
   script:
     - echo "test staging deployment"
     - apk add --no-cache curl
@@ -74,6 +80,9 @@ deploy production:
     name: production
     url: "http://$PRODUCTION_DOMAIN"
   when: manual #added a manual step so deploy to production is not automatic
+  only:
+    refs:
+      - master
   script:
     - npm install --global surge
     - surge --project ./public --domain $PRODUCTION_DOMAIN
@@ -85,6 +94,9 @@ test production deployment:
   image: alpine
   cache: {}
   script:
+  only:
+    refs:
+      - master
     - apk add --no-cache curl
     - curl "$PRODUCTION_DOMAIN" | tac | tac | grep "Gatsby"
     - curl "$PRODUCTION_DOMAIN" | tac | tac | grep "$CI_COMMIT_SHORT_SHA"
