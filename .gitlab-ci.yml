@@ -23,6 +23,9 @@ variables:
 
 build website:
   stage: build
+  only:
+    - master
+    - merge_requests
   script:
     - echo $CI_COMMIT_SHORT_SHA
     - npm install
@@ -34,14 +37,20 @@ build website:
       - ./public
 
 test artifact:
-  stage: test
   image: alpine #what does this image do?
+  stage: test
+  only:
+    - master
+    - merge_requests
   script:
     - test -f ./public/index.html
     - grep -q "gatsby" ./public/index.html
 
 test website:
   stage: test
+  only:
+    - master
+    - merge_requests
   script:
     - npm install
     - npm install -g gatsby-cli
@@ -80,7 +89,6 @@ test staging deployment:
   cache: {}
   only:
     - master
-    - merge_requests
   script:
     - echo "test staging deployment"
     - apk add --no-cache curl
