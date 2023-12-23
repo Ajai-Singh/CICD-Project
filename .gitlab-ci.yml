@@ -53,14 +53,14 @@ test website:
 system review:
   stage: system review
   environment:
-    name: review/$CI_COMMIT_SHORT_SHA
-    url: "http://medical-tin-$CI_COMMIT_SHORT_SHA.surge.sh"
+    name: review/$CI_ENVIRONMENT_SLUG
+    url: "http://medical-tin-$CI_ENVIRONMENT_SLUG.surge.sh"
   only:
     - merge_requests
   script:
     - echo "deploy system review"
     - npm install --global surge
-    - surge --project ./public --domain medical-tin-$CI_COMMIT_SHORT_SHA.surge.sh
+    - surge --project ./public --domain medical-tin-$CI_ENVIRONMENT_SLUG.surge.sh
 
 deploy staging:
   stage: deploy staging
