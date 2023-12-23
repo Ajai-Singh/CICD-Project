@@ -35,7 +35,7 @@ build website:
 
 test artifact:
   stage: test
-  image: alpine
+  image: alpine #what does this image do?
   script:
     - test -f ./public/index.html
     - grep -q "gatsby" ./public/index.html
@@ -94,7 +94,7 @@ deploy production:
   environment:
     name: production
     url: "http://$PRODUCTION_DOMAIN"
-  when: manual #added a manual step so deploy to production is not automatic
+  # when: manual #added a manual step so deploy to production is not automatic
   only:
     refs:
       - master
