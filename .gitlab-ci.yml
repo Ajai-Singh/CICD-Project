@@ -64,12 +64,26 @@ system review:
   environment:
     name: review/$CI_COMMIT_REF_NAME
     url: "http://medical-tin-$CI_ENVIRONMENT_SLUG.surge.sh"
+    on_stop: teardown system review
   only:
     - merge_requests
   script:
     - echo "deploy system review"
     - npm install --global surge
     - surge --project ./public --domain medical-tin-$CI_ENVIRONMENT_SLUG.surge.sh
+
+teardown system review:
+  stage: system review
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - echo "teardown system review"
+    - npm install --global surge
+    - surge teardown medical-tin-$CI_ENVIRONMENT_SLUG.surge.sh
+  when: manual
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    action: stop
 
 deploy staging:
   stage: deploy staging
