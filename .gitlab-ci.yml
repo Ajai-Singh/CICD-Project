@@ -77,12 +77,12 @@ teardown system review:
     - merge_requests
   stage: system review
   variables:
-    GIT_STRATEGY: none
+    GIT_STRATEGY: none #makes sure the job doesnt try to clone the branch as it may be deleted
   script:
     - echo "teardown system review"
     - npm install --global surge
     - surge teardown medical-tin-$CI_ENVIRONMENT_SLUG.surge.sh
-  when: manual
+  when: manual #manual works in a different way here. When we manually merge it will run this job
   environment:
     name: review/$CI_COMMIT_REF_NAME
     action: stop
