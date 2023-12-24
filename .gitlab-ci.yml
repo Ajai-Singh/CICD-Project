@@ -63,7 +63,7 @@ system review:
   stage: system review
   environment:
     name: review/$CI_COMMIT_REF_NAME
-    url: "http://medical-tin-$CI_ENVIRONMENT_SLUG.surge.sh"
+    url: medical-tin-$CI_ENVIRONMENT_SLUG.surge.sh
   only:
     - merge_requests
   script:
@@ -75,7 +75,7 @@ deploy staging:
   stage: deploy staging
   environment:
     name: staging
-    url: "http://$STAGING_DOMAIN"
+    url: $STAGING_DOMAIN
   only:
     - master
   script:
@@ -98,7 +98,7 @@ deploy production:
   stage: deploy production
   environment:
     name: production
-    url: "http://$PRODUCTION_DOMAIN"
+    url: $PRODUCTION_DOMAIN
   only:
     - master
   script:
