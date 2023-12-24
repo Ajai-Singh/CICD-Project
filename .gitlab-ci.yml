@@ -73,6 +73,8 @@ system review:
     - surge --project ./public --domain medical-tin-$CI_ENVIRONMENT_SLUG.surge.sh
 
 teardown system review:
+  only: 
+    - merge_requests
   stage: system review
   variables:
     GIT_STRATEGY: none
