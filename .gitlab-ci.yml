@@ -62,8 +62,8 @@ test website:
 system review:
   stage: system review
   environment:
-    name: "http://review/$CI_COMMIT_REF_NAME"
-    url: medical-tin-$CI_ENVIRONMENT_SLUG.surge.sh
+    name: review/$CI_COMMIT_REF_NAME
+    url: "http://medical-tin-$CI_ENVIRONMENT_SLUG.surge.sh"
   only:
     - merge_requests
   script:
